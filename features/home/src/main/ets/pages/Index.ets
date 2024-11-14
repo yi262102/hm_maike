@@ -6,6 +6,7 @@ struct Index {
   build() {
     Row() {
       Column() {
+        Text('测试2')
         Text('a')
         Text(this.message)
           .fontSize(50)
