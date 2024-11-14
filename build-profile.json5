@@ -36,6 +36,18 @@
           ]
         }
       ]
+    },
+    {
+      "name": "basic",
+      "srcPath": "./commons/basic",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }
