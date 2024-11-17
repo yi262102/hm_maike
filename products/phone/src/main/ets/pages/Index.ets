@@ -1,4 +1,4 @@
-import { BreakPointType } from 'basic';
+import { BreakpointConstants } from 'basic';
 import { Logger } from 'basic/src/main/ets/utils/Logger';
 
 interface TabItem {
@@ -17,7 +17,7 @@ struct Index {
     { text: '购物袋', normal: $r('app.media.ic_public_cart_normal'), active: $r('app.media.ic_public_cart_active') },
     { text: '我的', normal: $r('app.media.ic_public_my_normal'), active: $r('app.media.ic_public_my_active') },
   ]
-  @StorageProp('currentBreakpoint') breakPoint: string = 'xs'
+  @StorageProp(BreakpointConstants.BREAK_POINT_KEY) breakPoint: string = 'xs'
 
   aboutToAppear(): void {
     Logger.info({
@@ -40,12 +40,8 @@ struct Index {
     .onTabBarClick(index => {
       this.activeIndex = index
     })
-    .barPosition(new BreakPointType({
-      sm: BarPosition.End,
-      md: BarPosition.End,
-      lg: BarPosition.Start
-    }).getValue(this.breakPoint))
-    .vertical(this.breakPoint == 'lg' ? true : false)
+    .barPosition(this.breakPoint === BreakpointConstants.LG ? BarPosition.Start : BarPosition.End)
+    .vertical(this.breakPoint === BreakpointConstants.LG ? true : false)
   }
 
   @Builder
