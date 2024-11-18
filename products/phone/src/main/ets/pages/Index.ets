@@ -1,5 +1,6 @@
 import { BreakpointConstants } from 'basic';
 import { Logger } from 'basic/src/main/ets/utils/Logger';
+import { HomeView } from 'home';
 
 interface TabItem {
   text: string
@@ -31,7 +32,15 @@ struct Index {
     Tabs({ barPosition: BarPosition.End }) {
       ForEach(this.list, (item: TabItem, index: number) => {
         TabContent() {
+          if (index === 0) {
+            HomeView()
+          } else if (index === 1) {
 
+          } else if (index === 2) {
+
+          } else {
+
+          }
         }
         .tabBar(this.TabItemBuilder(item, index))
       })
