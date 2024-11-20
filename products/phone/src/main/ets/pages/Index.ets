@@ -19,13 +19,15 @@ struct Index {
     { text: '我的', normal: $r('app.media.ic_public_my_normal'), active: $r('app.media.ic_public_my_active') },
   ]
   @StorageProp(BreakpointConstants.BREAK_POINT_KEY) breakPoint: string = 'xs'
+  @StorageProp('safeBottom') safeBottom: number = 0
 
   aboutToAppear(): void {
+    //测试
     Logger.info({
       name: 'lee',
       age: 19
     })
-    Logger.log({ a: '第二个日志', b: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' })
+    Logger.log({ a: '第二个日志', b: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' }) //测试
   }
 
   build() {
@@ -46,6 +48,7 @@ struct Index {
       })
     }
     .scrollable(false)
+    .padding({ bottom: this.safeBottom })
     .onTabBarClick(index => {
       this.activeIndex = index
     })

@@ -32,7 +32,9 @@
               "action.system.home"
             ]
           }
-        ]
+        ],
+        //最小可支持的设备不低于330
+        "minWindowWidth": 330
       }
     ],
     "extensionAbilities": [

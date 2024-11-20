@@ -1,3 +1,4 @@
+import { BreakpointConstants, BreakPointType } from 'basic'
 import { DiscountGoodsComp, DiscountType } from '../components/DiscountGoodsComp'
 import { MkGoods } from '../components/MkGoods'
 import { Banner, CategoryItem, MkGoodsItem, Params } from '../viewmodel'
@@ -19,6 +20,8 @@ export struct HomeView {
   @State newGoods: MkGoodsItem[] = []
   // 推荐商品
   @State recommendGoods: MkGoodsItem[] = []
+  @StorageProp(BreakpointConstants.BREAK_POINT_KEY) breakPoint: string = 'sm'
+  @StorageProp('safeTop') safeTop: number = 0
 
   // 生成模拟数据
   mockData() {
@@ -128,6 +131,8 @@ export struct HomeView {
               Image(item.imgUrl)
             })
           }
+          .displayCount(new BreakPointType({ sm: 1, md: 2, lg: 3 }).getValue(this.breakPoint))
+          .itemSpace(new BreakPointType({ sm: 0, md: 10, lg: 20 }).getValue(this.breakPoint))
           .indicator(
             DotIndicator.dot()
               .itemWidth(8)
@@ -154,7 +159,7 @@ export struct HomeView {
             .borderRadius(20)
             .padding({ left: 12 })
           }
-          .padding({ left: 16, right: 16 })
+          .padding({ left: 16, right: 16, top: this.safeTop })
         }
         .width('100%')
 
@@ -162,7 +167,7 @@ export struct HomeView {
         // 分类
         Column({ space: 10 }) {
           // 分类
-          List({ space: 16 }) {
+          List({ space: new BreakPointType({ sm: 14, md: 36, lg: 72 }).getValue(this.breakPoint) }) {
             ForEach(this.categories, (item: CategoryItem) => {
               ListItem() {
                 Column() {
@@ -195,7 +200,7 @@ export struct HomeView {
           .alignListItem(ListItemAlign.Center)
 
           // 特惠推荐
-          Column({ space: 10 }) {
+          Column({ space: new BreakPointType({ sm: 14, md: 36, lg: 72 }).getValue(this.breakPoint) }) {
             Image($r('app.media.home_cmd_title'))
               .width(150)
               .height(20)
@@ -248,7 +253,7 @@ export struct HomeView {
           }
 
           // 新鲜好物
-          Column({ space: 10 }) {
+          Column({ space: new BreakPointType({ sm: 14, md: 36, lg: 72 }).getValue(this.breakPoint) }) {
             Image($r('app.media.home_new'))
               .width(146)
               .height(19)
@@ -279,7 +284,11 @@ export struct HomeView {
               }
             })
           }
-          .columnsTemplate('1fr 1fr')
+          .columnsTemplate(new BreakPointType({
+            sm: '1fr 1fr',
+            md: '1fr 1fr 1fr',
+            lg: '1fr 1fr 1fr 1fr'
+          }).getValue(this.breakPoint))
           .columnsGap(8)
           .rowsGap(10)
 
