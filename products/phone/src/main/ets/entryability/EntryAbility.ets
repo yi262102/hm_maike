@@ -58,8 +58,9 @@ export default class EntryAbility extends UIAbility {
         return;
       }
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
-      
+
       // 非 2in1 模式下开启 沉浸式导航
+      // deviceInfo.deviceType 获取设备的名字
       if (deviceInfo.deviceType != '2in1') {
         // 开启全屏
         const win = windowStage.getMainWindowSync()
