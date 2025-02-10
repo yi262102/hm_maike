@@ -1,4 +1,5 @@
 import { BreakpointConstants, BreakPointType } from 'basic'
+import { getBannerApi } from '../api'
 import { DiscountGoodsComp, DiscountType } from '../components/DiscountGoodsComp'
 import { MkGoods } from '../components/MkGoods'
 import { Banner, CategoryItem, MkGoodsItem, Params } from '../viewmodel'
@@ -23,14 +24,26 @@ export struct HomeView {
   @StorageProp(BreakpointConstants.BREAK_POINT_KEY) breakPoint: string = 'sm'
   @StorageProp('safeTop') safeTop: number = 0
 
+  aboutToAppear(): void {
+    // mock数据
+    this.mockData()
+    // api拿数据
+    this.getBanner()
+  }
+
+  async getBanner() {
+    const res = await getBannerApi()
+    this.banners = res.data.result
+  }
+
   // 生成模拟数据
   mockData() {
-    this.banners = new Array(6).fill({
-      id: "42",
-      imgUrl: "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meikou/banner/nuandong_sj.png",
-      hrefUrl: "/category/1181622006",
-      type: "1"
-    })
+    // this.banners = new Array(6).fill({
+    //   id: "42",
+    //   imgUrl: "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meikou/banner/nuandong_sj.png",
+    //   hrefUrl: "/category/1181622006",
+    //   type: "1"
+    // })
 
     this.categories = new Array(10).fill({
       id: "1181622001",
@@ -79,12 +92,6 @@ export struct HomeView {
       "picture": "https://yanxuan-item.nosdn.127.net/937a8e46a9284e8f7e00e13911ecfbe7.png",
       "payCount": 0
     })
-  }
-
-  aboutToAppear(): void {
-    // mock数据
-    this.mockData()
-
   }
 
   @Builder
