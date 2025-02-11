@@ -3,6 +3,7 @@ import { getBannerApi } from '../api'
 import { DiscountGoodsComp, DiscountType } from '../components/DiscountGoodsComp'
 import { MkGoods } from '../components/MkGoods'
 import { Banner, CategoryItem, MkGoodsItem, Params } from '../viewmodel'
+import { promptAction } from '@kit.ArkUI'
 
 
 @Component
@@ -33,7 +34,12 @@ export struct HomeView {
 
   async getBanner() {
     const res = await getBannerApi()
-    this.banners = res.data.result
+    AlertDialog.show({ message: JSON.stringify(res.data, null, 2) })
+    if (res.data.code === '1') {
+      this.banners = res.data.result
+    } else {
+      promptAction.showToast({ message: res.data.msg })
+    }
   }
 
   // 生成模拟数据
