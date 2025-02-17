@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from '@ohos/axios'
+import axios, { AxiosRequestConfig, AxiosResponse } from '@ohos/axios'
 
 // 实例化 通用配置
 export const axiosInstance = axios.create({
@@ -19,8 +19,8 @@ export type ResponseType<T> = AxiosResponse<HttpResponse<T>>
 
 export class RequestAxios {
   // get -> params -> { params: {} }
-  static get<T>(url: string, params?: object): Promise<ResponseType<T>> {
-    return axiosInstance.get<null, ResponseType<T>>(url, { params })
+  static get<T>(url: string, config?: AxiosRequestConfig): Promise<ResponseType<T>> {
+    return axiosInstance.get<null, ResponseType<T>>(url, config)
   }
 
   // post -> data -> { data: {} }
